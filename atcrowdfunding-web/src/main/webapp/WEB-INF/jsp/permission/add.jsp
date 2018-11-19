@@ -49,6 +49,10 @@
 					<label for="exampleInputPassword1">链接地址</label>
 					<input type="text" class="form-control" id="url" placeholder="请输入链接地址">
 				  </div>
+				  <div class="form-group">
+					<label for="exampleInputPassword1">链接地址</label>
+					<input type="text" class="form-control" id="icon" placeholder="请输入图标样式">
+				  </div>
 				  <button id="insertBtn" type="button" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 				  <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
 				</form>
@@ -116,6 +120,7 @@
 			    		data : {
 			    			"name" : permissionname,
 			    			"url"  : $("#url").val(),
+			    			"icon"  : $("#icon").val(),
 			    			"pid"  : "${param.id}"
 			    		},
 			    		beforeSend : function() {

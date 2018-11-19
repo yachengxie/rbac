@@ -3,6 +3,8 @@ package com.atguigu.atcrowdfunding.service;
 import java.util.List;
 import java.util.Map;
 
+import com.atguigu.atcrowdfunding.model.Permission;
+import com.atguigu.atcrowdfunding.model.Role;
 import com.atguigu.atcrowdfunding.model.User;
 
 public interface UserService {
@@ -32,5 +34,7 @@ public interface UserService {
 	void insertUserRoles(Map<String, Object> map);
 
 	List<Integer> queryRoleidsByUserid(Integer id);
+
+	List<String> getUserRoles(User user);
 
 }

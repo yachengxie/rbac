@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Select;
 
+import com.atguigu.atcrowdfunding.model.Permission;
+import com.atguigu.atcrowdfunding.model.Role;
 import com.atguigu.atcrowdfunding.model.User;
 
 public interface UserDao {
@@ -15,7 +17,7 @@ public interface UserDao {
 	@Select("select * from t_user where loginacct = #{loginacct} and userpswd = #{userpswd}")
 	User query4Login(User user);
 
-	@Select("select * from t_user where loginacct = #{username}")
+	@Select("select * from t_user where loginacct = #{loginacct}")
 	User queryByUsername(String username);
 
 	List<User> pageQueryData(Map<String, Object> map);
@@ -39,5 +41,7 @@ public interface UserDao {
 
 	@Select("select roleid from t_user_role where userid = #{userid}")
 	List<Integer> queryRoleidsByUserid(Integer id);
+
+	List<String> getUserRoles(User user);
 
 }

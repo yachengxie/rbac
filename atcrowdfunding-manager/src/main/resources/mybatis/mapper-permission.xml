@@ -21,9 +21,9 @@
     
     <insert id="insertPermission">
         insert into t_permission (
-            name, url, pid
+            name, url, pid, icon
         ) values (
-            #{name}, #{url}, #{pid}
+            #{name}, #{url}, #{pid},#{icon}
         )
     </insert>
     

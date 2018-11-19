@@ -2,8 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
    
 	<bean id="myRealm" class="com.atguigu.atcrowdfunding.realm.ShiroRealm">
 		<property name="credentialsMatcher">
@@ -13,8 +15,11 @@
     	</property>
 	</bean>
    
+   <bean id="urlPermissionResolver" class="com.atguigu.atcrowdfunding.web.UrlPermissionResolver"></bean>
+   
    	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 	    <property name="realm" ref="myRealm"/>
+	    <property name="authorizer.permissionResolver" ref="urlPermissionResolver"/>
 	</bean>
 	
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
@@ -25,16 +30,40 @@
 	    <property name="securityManager" ref="securityManager"/>
 	</bean>
 	
+	<bean id="urlAccessFilter" class="com.atguigu.atcrowdfunding.web.UrlAccessFilter">
+		<property name="errorUrl" value="/unauthorized.jsp"/>
+	</bean>
    
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 	    <property name="securityManager" ref="securityManager"/>
 	    <property name="loginUrl" value="/login"/>
 	    <property name="successUrl" value="/main"/>
-	    <property name="unauthorizedUrl" value="/unauthorized"/>
+	    <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
+	    <property name="filters">
+            <util:map>
+                <entry key="urlFilter" value-ref="urlAccessFilter"/>
+            </util:map>
+        </property>
 	    <property name="filterChainDefinitions">
 	        <value>
+	        	<!-- 加载静态资源 -->
+	        	/favicon.ico = anon
+	        	/bootstrap/** = anon
+	        	/css/** = anon
+	        	/img/** = anon
+	        	/jquery/** = anon
+	        	/layer/** = anon
+	        	/script/** = anon
+	        	/ztree/** = anon
+	        	
 	            /login = anon
-	            <!-- /** = authc -->
+	            /logout = logout
+	            
+	            /user/** = urlFilter
+	            /role/** = urlFilter
+	            /permission/** = urlFilter
+	            <!--除以上配置外，其他请求全部必须认证-->
+	            /** = authc
 	        </value>
 	    </property>
 	</bean>

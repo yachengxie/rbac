@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.atguigu.atcrowdfunding.dao.UserDao;
+import com.atguigu.atcrowdfunding.model.Permission;
+import com.atguigu.atcrowdfunding.model.Role;
 import com.atguigu.atcrowdfunding.model.User;
 import com.atguigu.atcrowdfunding.service.UserService;
 
@@ -23,8 +25,8 @@ public class UserServiceImpl implements UserService {
 	public User query4Login(User user) {
 		return userDao.query4Login(user);
 	}
-	public User queryByUsername(String username) {
-		return userDao.queryByUsername(username);
+	public User queryByUsername(String loginacct) {
+		return userDao.queryByUsername(loginacct);
 	}
 
 	public List<User> pageQueryData(Map<String, Object> map) {
@@ -66,4 +68,9 @@ public class UserServiceImpl implements UserService {
 	public List<Integer> queryRoleidsByUserid(Integer id) {
 		return userDao.queryRoleidsByUserid(id);
 	}
+
+	public List<String> getUserRoles(User user) {
+		return userDao.getUserRoles(user);
+	}
+
 }

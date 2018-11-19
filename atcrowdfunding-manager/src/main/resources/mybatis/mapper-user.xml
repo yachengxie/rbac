@@ -64,4 +64,18 @@
         #{roleid}
         </foreach>
     </delete>
+    
+    <select id="getUserRoles" resultType="java.lang.String">
+        SELECT 
+		  name 
+		FROM
+		  t_role 
+		WHERE id IN 
+		  (SELECT 
+		    roleid 
+		  FROM
+		    t_user_role 
+		  WHERE userid = #{id})
+    </select>
+    
 </mapper>
