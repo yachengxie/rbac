@@ -8,9 +8,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/main.css">
+	<link rel="shortcut icon" href="${APP_PATH}/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="${APP_PATH}/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${APP_PATH}/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${APP_PATH}/css/main.css">
 	<style>
 	.tree li {
         list-style-type: none;

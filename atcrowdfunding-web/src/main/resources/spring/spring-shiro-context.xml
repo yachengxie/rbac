@@ -34,7 +34,7 @@
 	    <property name="filterChainDefinitions">
 	        <value>
 	            /login = anon
-	            /** = authc
+	            <!-- /** = authc -->
 	        </value>
 	    </property>
 	</bean>
