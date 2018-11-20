@@ -1,7 +1,9 @@
 package com.atguigu.atcrowdfunding.model;
 
-public class User {
+public class User implements java.io.Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private Integer id;
 	private String username;
 	private String loginacct;

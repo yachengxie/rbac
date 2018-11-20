@@ -1,8 +1,11 @@
 package com.atguigu.atcrowdfunding.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,8 @@ import com.atguigu.atcrowdfunding.service.UserService;
 
 @Controller
 public class SecurityController {
+	
+	private static final Logger log = LoggerFactory.getLogger(SecurityController.class);
 
 	@Autowired
 	private UserService userService;
@@ -31,23 +36,26 @@ public class SecurityController {
 
 	@ResponseBody
     @RequestMapping(value="/login",method= RequestMethod.POST)
-    public AJAXResult login(Model model, @ModelAttribute User user) {
+    public AJAXResult login(Model model, @ModelAttribute User user,String rememberMe) {
     	AJAXResult result = new AJAXResult();
     	try {
     		UsernamePasswordToken token = new UsernamePasswordToken(user.getLoginacct(), user.getUserpswd());
+    		if(StringUtils.isNotBlank(rememberMe)) {
+    			token.setRememberMe(true);
+    		}
     		SecurityUtils.getSubject().login(token);
     	} catch (AuthenticationException e) {
-    		e.printStackTrace();
+    		log.error("登录失败：{}", e.getMessage(),e);
     		result.setSuccess(false);
     	}
     	return result;
     }
 
-    @RequestMapping("/logout")
-    public String logout() {
-        SecurityUtils.getSubject().logout();
-        return "redirect:/login";
-    }
+//    @RequestMapping("/logout")
+//    public String logout() {
+//        SecurityUtils.getSubject().logout();
+//        return "redirect:/login";
+//    }
 	
 	@RequestMapping("/error")
 	public String error() {
@@ -59,7 +67,7 @@ public class SecurityController {
 		return "unauthorized";
 	}
 	
-	@RequestMapping("/main")
+	@RequestMapping("/")
 	public String main() {
 		return "main";
 	}

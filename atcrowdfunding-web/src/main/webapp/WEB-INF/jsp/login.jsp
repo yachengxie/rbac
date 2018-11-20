@@ -45,7 +45,7 @@
 		  </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> 记住我
+            <input type="checkbox" id="rememberMe" name="rememberMe" > 记住我
           </label>
           <br>
           <label>
@@ -93,7 +93,8 @@
         	url  : "login",
         	data : {
         		"loginacct" : loginacct,
-        		"userpswd"  : userpswd
+        		"userpswd"  : userpswd,
+        		"rememberMe": $("#rememberMe").is(':checked'):'true'?''  
         	},
         	beforeSend : function(){
         		loadingIndex = layer.msg('处理中', {icon: 16});
@@ -101,7 +102,7 @@
         	success : function(result) {
         		layer.close(loadingIndex);
         		if (result.success) {
-        			window.location.href = "main";
+        			window.location.href = "/";
         		} else {
                     layer.msg("用户登录账号或密码不正确，请重新输入", {time:2000, icon:5, shift:6}, function(){
                     	

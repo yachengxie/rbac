@@ -30,20 +30,15 @@
 	    <property name="securityManager" ref="securityManager"/>
 	</bean>
 	
-	<bean id="urlAccessFilter" class="com.atguigu.atcrowdfunding.web.UrlAccessFilter">
+	<bean id="urlFilter" class="com.atguigu.atcrowdfunding.web.UrlAccessFilter">
 		<property name="errorUrl" value="/unauthorized.jsp"/>
 	</bean>
    
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 	    <property name="securityManager" ref="securityManager"/>
 	    <property name="loginUrl" value="/login"/>
-	    <property name="successUrl" value="/main"/>
+	    <!-- <property name="successUrl" value="/main"/> -->
 	    <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
-	    <property name="filters">
-            <util:map>
-                <entry key="urlFilter" value-ref="urlAccessFilter"/>
-            </util:map>
-        </property>
 	    <property name="filterChainDefinitions">
 	        <value>
 	        	<!-- 加载静态资源 -->
